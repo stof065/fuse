@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1515171168725
+Build-Jdk: 1.8.0_101
+Built-By: mabourouh
+Bundle-Description: Empty Camel Blueprint Example
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Empty Camel Blueprint Example [sample]
+Bundle-SymbolicName: sample
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: sample.bean;uses:="org.slf4j,org.apache.camel,javax.sql"
+ ;version="1.0.0.SNAPSHOT",sample.bean.rest;uses:="javax.ws.rs";version=
+ "1.0.0.SNAPSHOT",sample.bean.route;uses:="org.apache.camel,org.slf4j,or
+ g.apache.camel.builder,org.apache.camel.model";version="1.0.0.SNAPSHOT"
+Import-Package: com.mysql.jdbc.jdbc2.optional,javax.sql,javax.ws.rs;vers
+ ion="[2.0,3)",org.apache.activemq,org.apache.activemq.camel.component;v
+ ersion="[5.11,6)",org.apache.camel;version="[2.17,3)",org.apache.camel.
+ builder;version="[2.17,3)",org.apache.camel.model;version="[2.17,3)",or
+ g.osgi.service.blueprint;version="[1.0.0,2.0.0)",org.slf4j;version="[1.
+ 7,2)"
+Tool: Bnd-1.50.0

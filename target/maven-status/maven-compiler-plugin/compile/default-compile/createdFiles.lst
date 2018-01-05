@@ -1,0 +1,5 @@
+sample\bean\route\FirstRoutComponent.class
+sample\bean\rest\MessageRestController.class
+sample\bean\ProcessingBean.class
+sample\bean\RouteProcessor.class
+sample\bean\route\FirstRoutComponent$1.class
