@@ -13,7 +13,6 @@ public class MessageRestController {
 	
 	@GET
 	@Path("/send/{message}")
-	@Produces(MediaType.TEXT_PLAIN)
 	public String sendMessage(@PathParam("message") String message){
 		return message ;
 	}

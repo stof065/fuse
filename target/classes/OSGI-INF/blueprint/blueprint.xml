@@ -1,48 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-    xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd                              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xmlns:camel-cxf="http://camel.apache.org/schema/blueprint/cxf"
+	xmlns:cxfcore="http://cxf.apache.org/blueprint/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd                              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
 
 
 
-    <cm:property-placeholder
-        id="property-placeholder-8a5986bd-5c0b-46e8-9701-727ece5147a1"
-        persistent-id="HelloBean" update-strategy="reload">
-        <cm:default-properties>
-            <cm:property name="greeting" value="Hi from Camel"/>
-            <cm:property name="broker_url" value="tcp://localhost:50983"/>
-        </cm:default-properties>
-    </cm:property-placeholder>
-    <bean class="sample.bean.rest.MessageRestController" id="messageRestController"/>
-    <bean class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" id="mysqlDatasource">
-        <property name="serverName" value="localhost"/>
-        <property name="databaseName" value="cabinet"/>
-        <property name="port" value="3306"/>
-        <property name="user" value="root"/>
-        <property name="password" value="root"/>
-    </bean>
-    <bean class="sample.bean.ProcessingBean" id="processingBean" init-method="startingBean">
-        <property name="dataSource" ref="mysqlDatasource"/>
-    </bean>
-    <bean class="org.apache.activemq.ActiveMQConnectionFactory" id="jmsConnectionFactory">
-        <property name="brokerURL" value="${broker_url}"/>
-        <property name="userName" value="admin"/>
-        <property name="password" value="abourouh"/>
-    </bean>
-    <bean class="org.apache.activemq.camel.component.ActiveMQComponent" id="activemq">
-        <property name="connectionFactory" ref="jmsConnectionFactory"/>
-    </bean>
-    <camelContext id="_context1" xmlns="http://camel.apache.org/schema/blueprint">
-        <route id="queue">
-            <!-- <bean id="processorBean" ref="processingBean" method="process"/> -->
-            <from id="_from1" uri="activemq:input"/>
-            <process id="dbprocessor" ref="processingBean">
-                <description>processor to store message in db</description>
-            </process>
-            <log id="_log1" message="The message recieved ${body}"/>
-            <to id="_to1" uri="activemq:output"/>
-        </route>
-    </camelContext>
+	<cm:property-placeholder
+		id="property-placeholder-8a5986bd-5c0b-46e8-9701-727ece5147a1"
+		persistent-id="HelloBean">
+		<cm:default-properties>
+			<cm:property name="greeting" value="Hi from Camel" />
+			<cm:property name="broker_url" value="tcp://localhost:61616" />
+		</cm:default-properties>
+	</cm:property-placeholder>
+
+
+	<camel-cxf:rsServer id="messageServerEndpoint"
+		serviceClass="sample.bean.rest.MessageRestController" address="/serverMessage" />
+
+
+
+
+
+	<bean class="sample.bean.rest.MessageRestController" id="messageRestController" />
+
+
+
+
+	<bean class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" id="mysqlDatasource">
+		<property name="serverName" value="localhost" />
+		<property name="databaseName" value="cabinet" />
+		<property name="port" value="3306" />
+		<property name="user" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	<bean class="sample.bean.ProcessingBean" id="processingBean"
+		init-method="startingBean">
+		<property name="dataSource" ref="mysqlDatasource" />
+	</bean>
+	<bean class="org.apache.activemq.ActiveMQConnectionFactory" id="jmsConnectionFactory">
+		<property name="brokerURL" value="${broker_url}" />
+		<property name="userName" value="admin" />
+		<property name="password" value="abourouh" />
+	</bean>
+	<bean class="org.apache.activemq.camel.component.ActiveMQComponent"
+		id="activemq">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+	</bean>
+	<camelContext id="myContext"
+		xmlns="http://camel.apache.org/schema/blueprint">
+
+		<route id="routRest">
+			<from id="restEndpoint" uri="cxfrs:bean:messageServerEndpoint" />
+			<log message="this is recieved message ${body}"></log>
+			<setBody>
+				<simple>
+			message recieved from rest endpoint :	${body}
+			</simple>
+			</setBody>
+			<to uri="activemq:restdirect" />
+		</route>
+
+
+		<route id="queue">
+			<!-- <bean id="processorBean" ref="processingBean" method="process"/> -->
+			<from id="_from1" uri="activemq:input" />
+			<process id="dbprocessor" ref="processingBean">
+				<description>processor to store message in db</description>
+			</process>
+			<log id="_log1" message="The message recieved ${body}" />
+			<to id="_to1" uri="activemq:output" />
+		</route>
+	</camelContext>
 </blueprint>
