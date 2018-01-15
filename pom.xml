@@ -79,16 +79,20 @@
 			<version>5.11.0.redhat-630187</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.apache.cxf</groupId> -->
-<!-- 			<artifactId>cxf-rt-transports-http-jetty</artifactId> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.cxf</groupId> -->
+		<!-- <artifactId>cxf-rt-transports-http-jetty</artifactId> -->
+		<!-- </dependency> -->
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.apache.camel</groupId> -->
-<!-- 			<artifactId>camel-cxf</artifactId> -->
-<!-- 		</dependency> -->
-
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.camel</groupId> -->
+		<!-- <artifactId>camel-cxf</artifactId> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>demo</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 	<repositories>
@@ -161,7 +165,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-					
+					<Import-package>com.example.demo.*</Import-package>
 						<Bundle-SymbolicName>sample</Bundle-SymbolicName>
 						<Bundle-Name>Empty Camel Blueprint Example [sample]</Bundle-Name>
 					</instructions>
