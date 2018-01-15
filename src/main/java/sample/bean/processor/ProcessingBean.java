@@ -1,31 +1,29 @@
 package sample.bean.processor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
 import javax.sql.DataSource;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ConfigurableApplicationContext;
 
-import com.example.demo.DemoApplication;
-import com.example.demo.repository.UserRepository;
+import sample.bean.repository.DummyRepository;
 
 public class ProcessingBean implements Processor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ProcessingBean.class);
 
 	private DataSource dataSource;
+	
+	private DummyRepository dummyRepository;
 
 	public String insertMessage(String messge) throws Exception {
-		LOG.info("start processing request");
-		Connection ct = dataSource.getConnection();
-		PreparedStatement statemet = ct.prepareStatement("INSERT INTO `test` (`test`) VALUES ('" + messge + "');");
-		statemet.executeUpdate();
-		LOG.info("executed request");
+		LOG.info("start processing request : {}",dummyRepository.findAll());
+		// Connection ct = dataSource.getConnection();
+		// PreparedStatement statemet = ct.prepareStatement("INSERT INTO `test`
+		// (`test`) VALUES ('" + messge + "');");
+		// statemet.executeUpdate();
+		// LOG.info("executed request");
 		return "OK";
 
 	}
@@ -45,8 +43,6 @@ public class ProcessingBean implements Processor {
 	@Override
 	public void process(Exchange arg0) throws Exception {
 
-	
-		
 		// log all user
 		// userRepository.findAll().stream().map(Object::toString).forEach(LOG::info);
 
@@ -55,5 +51,15 @@ public class ProcessingBean implements Processor {
 		LOG.info("end processing request : {}", arg0.getIn());
 
 	}
+
+	public DummyRepository getDummyRepository() {
+		return dummyRepository;
+	}
+
+	public void setDummyRepository(DummyRepository dummyRepository) {
+		this.dummyRepository = dummyRepository;
+	}
+	
+	
 
 }
