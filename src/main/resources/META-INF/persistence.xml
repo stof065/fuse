@@ -9,7 +9,9 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<!--jta-data-source>osgi:service/jdbc/Hibernate_XADS</jta-data-source>
 		<non-jta-data-source>osgi:service/jdbc/NonXA_DS</non-jta-data-source-->
-		<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/osgidb)</non-jta-data-source>
+		<non-jta-data-source>blueprint:comp/mysqlDatasource</non-jta-data-source>
+<!-- 				<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/osgidb)</non-jta-data-source> -->
+		
 		<class>sample.bean.model.Dummy</class>
 		<properties>
 			<!--property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/-->

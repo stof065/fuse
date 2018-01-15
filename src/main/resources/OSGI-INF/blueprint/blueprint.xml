@@ -23,7 +23,7 @@
 			<ref component-id="messageRestController" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
-	
+	<jpa:enable />
 	<bean class="sample.bean.rest.MessageRestController" id="messageRestController" />
 	<bean class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" id="mysqlDatasource">
 		<property name="serverName" value="localhost" />
@@ -49,8 +49,7 @@
 		<property name="connectionFactory" ref="jmsConnectionFactory" />
 	</bean>
 
-	<bean id="dummyRepository" class="sample.bean.repository.DummyRepository"
-		init-method="init">
+	<bean id="dummyRepository" class="sample.bean.repository.DummyRepository">
 	</bean>
 	
 	  <service id="mysqlDS" interface="javax.sql.DataSource" ref="mysqlDatasource">
