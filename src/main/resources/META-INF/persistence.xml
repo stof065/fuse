@@ -1,48 +1,24 @@
-<<<<<<< HEAD
 <?xml version="1.0"?>
 
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
 	http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="camel-hibernate-jpa" transaction-type="JTA">
+	<persistence-unit name="camel-hibernate-jpa"
+		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<!--jta-data-source>osgi:service/jdbc/Hibernate_XADS</jta-data-source>
-		<non-jta-data-source>osgi:service/jdbc/NonXA_DS</non-jta-data-source-->
+		<!--jta-data-source>osgi:service/jdbc/Hibernate_XADS</jta-data-source> 
+			<non-jta-data-source>osgi:service/jdbc/NonXA_DS</non-jta-data-source -->
 		<non-jta-data-source>blueprint:comp/mysqlDatasource</non-jta-data-source>
-<!-- 				<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/osgidb)</non-jta-data-source> -->
-		
-		<class>sample.bean.model.Dummy</class>
-		<properties>
-			<!--property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/-->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.connection.pool_size" value="25" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-		</properties>
-	</persistence-unit>
-=======
-<?xml version="1.0"?>
+		<!-- <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/osgidb)</non-jta-data-source> -->
 
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
-	http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="camel-hibernate-jpa" transaction-type="JTA">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<!--jta-data-source>osgi:service/jdbc/Hibernate_XADS</jta-data-source>
-		<non-jta-data-source>osgi:service/jdbc/NonXA_DS</non-jta-data-source-->
-		<non-jta-data-source>blueprint:comp/mysqlDatasource</non-jta-data-source>
-<!-- 				<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/osgidb)</non-jta-data-source> -->
-		
 		<class>sample.bean.model.Dummy</class>
 		<properties>
-			<!--property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/-->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+			<!--property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/ -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.connection.pool_size" value="25" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>
 	</persistence-unit>
->>>>>>> 61bf9d0... gitignore
 </persistence>
